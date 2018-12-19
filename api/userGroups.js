@@ -1,8 +1,8 @@
 var Client = require('node-rest-client').Client;
 
 let usergroups = function(api) {
-    let search_groups = function() {
-        return api.get('/api/user_groups/search');
+    let search_groups = function(query) {
+        return api.get('/api/user_groups/search' + ((query!== undefined)?'?q=' + query:''));
     };
     exports.search_groups = search_groups;
 
