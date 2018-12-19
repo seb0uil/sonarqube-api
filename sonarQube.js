@@ -1,7 +1,7 @@
 var Client = require('node-rest-client').Client;
-var Common = require('./commons');
-var permissions =require('./permissions');
-var userGroup = require('./userGroups');
+var Common = require('./api/commons');
+var permissions =require('./api/permissions');
+var userGroup = require('./api/userGroups');
 
 let sonarQube = function(auth, server){
     this.auth = auth;

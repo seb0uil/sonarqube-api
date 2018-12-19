@@ -1,6 +1,6 @@
 {
   "name": "sonarqube-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "javascript module to manage sonarqube API",
   "main": "index.js",
   "scripts": {
