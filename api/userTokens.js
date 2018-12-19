@@ -10,7 +10,14 @@ let usertokens = function(api) {
             name: name,
             login: login
         });
-    }
+    };
+
+    exports.revoke = function(name, login) {
+        return api.post('/api/user_tokens/revoke', {
+            name: name,
+            login: login
+        });
+    };
     return this;
 };
 exports.usertokens = usertokens;
