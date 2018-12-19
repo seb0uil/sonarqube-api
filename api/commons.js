@@ -1,4 +1,4 @@
-let Common = function() {
+exports.common = function() {
 
     let parseResponse = function (response, data, resolve, reject) {
         if (response.statusCode === 200) {
@@ -7,13 +7,22 @@ let Common = function() {
             reject(response.statusCode)
         }
     };
-    exports.parseResponse = parseResponse;
 
-    let api = function (client, server) {
+    exports.api = function (client, server) {
         this.client = client;
         this.server = server;
-        let post = function (url, data) {
+        exports.post = function (url, data) {
             return new Promise(function (resolve, reject) {
+                /* validate & clean data */
+                for (var property in data) {
+                    if (typeof data[property] === 'undefined') {
+                        data[property] = '';
+                    } else if (typeof data[property] !== 'string') {
+                        reject('property typeof ' + typeof data[property])
+                    }
+                    data[property] = data[property].trim();
+                }
+
                 let args = {
                     data: data,
                     headers: {"Content-Type": "application/x-www-form-urlencoded"}
@@ -23,23 +32,17 @@ let Common = function() {
                 });
             });
         };
-        exports.post = post;
 
-        let get = function (url) {
+        exports.get = function (url) {
             return new Promise(function (resolve, reject) {
                 client.get(server.url + url, function (data, response) {
                     parseResponse(response, data, resolve, reject);
                 });
             });
         };
-        exports.get = get;
         return this
     };
-    exports.api = api;
 
     return this;
 };
 
-exports.parseResponse = Common.parseResponse;
-exports.common = Common;
-exports.api = Common.api;
